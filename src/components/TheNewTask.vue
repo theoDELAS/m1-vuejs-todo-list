@@ -1,13 +1,10 @@
 <template>
-  <div>
-    <h1>{{ msg }}</h1>
+  <div class="input-container">
     <input v-model="title" placeholder="Titre">
     <input v-model="hours" value="0" type="number">
     <select name="responsable" v-on:change="onChangeResponsable($event)">
-      <option disabled value="">Sélectionner un responsable</option>
-      <option>Res 1</option>
-      <option>Res 2</option>
-      <option>Res 3</option>
+      <option disabled selected>Sélectionner un responsable</option>
+      <option v-for="(user, index) in userList" :key="index">{{user.firstName}} {{user.lastName}}</option>
     </select>
     <button @click="addToTodoList">Add</button>
   </div>
@@ -17,15 +14,13 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-  name: 'NewTask',
-  props: {
-    msg: String,
-  },
+  name: 'TheNewTask',
   data() {
     return {
       title: '',
       hours: 0,
-      responsable: ''
+      responsable: '',
+      userList: this.$store.state.userList
     }
   },
   methods: {
@@ -41,7 +36,7 @@ export default Vue.extend({
           responsable: this.responsable
       })
       }
-    },
+    }
   },
 });
 </script>

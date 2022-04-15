@@ -1,31 +1,26 @@
 <script lang="ts">
 import Vue from 'vue';
-import NewTask from './NewTask.vue';
+import TheNewTask from './TheNewTask.vue';
 import Task from './Task.vue';
+import store from '@/store';
 
 export default Vue.extend({
   components: {
-    NewTask,
+    TheNewTask,
     Task
   },
   data() {
     return {
-      todosList: [
-        {
-          title: "Alex",
-          hours: 10,
-          responsable: "TLN"
-        }
-      ]
+      todoList: this.$store.state.todoList
     }
   },
   name: 'TodoList',
   methods: {
     addToTodoList: function(_task: any) {
-      this.$set(this.todosList, this.todosList.length, _task);
+      store.commit('addTask', _task)
     },
     removeToTodoList: function(_id: any) {
-      this.todosList.splice(_id, 1);
+      store.commit('removeTask', _id)
     },
   }
 });
@@ -33,8 +28,8 @@ export default Vue.extend({
 
 <template>
   <div>
-    <NewTask @addToTodoList="addToTodoList" />
-    <div v-for="(task, index) in todosList" :key="index">
+    <TheNewTask @addToTodoList="addToTodoList" />
+    <div v-for="(task, index) in todoList" :key="index">
       <Task :id="index" :title="task.title" :hours="task.hours" :responsable="task.responsable" @removeToTodoList="removeToTodoList" />
     </div>
   </div>
