@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:class="{ active: isActive }">
+  <div>
     Titre : <strong>{{ title }}</strong>, durée : <strong>{{ hours }}h</strong>, responsable : <strong>{{ responsable }}</strong>
     <button @click="removeToTodoList">Remove</button>
   </div>
@@ -12,11 +12,6 @@ export default Vue.extend({
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Task',
   props: ["id", "title", "hours", "responsable", "isActive"],
-  data() {
-    return {
-      isActive: true
-    }
-  },
   methods: {
     removeToTodoList: function () {
       this.$emit('removeToTodoList', {
